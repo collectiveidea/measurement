@@ -1,0 +1,22 @@
+Meter:
+  abbreviation: m
+  to_base: 1.0
+  to_parent: 1.0
+Centimeter:
+  abbreviation: cm
+  parent: Meter
+  to_parent: 100.0
+Kilometer:
+  abbreviation: km
+  parent: Meter
+  to_parent: 1.0/1000.0
+  
+Foot:
+  abbreviation: ft
+  to_base: 3.6
+    
+Inch:
+  abbreviation: in
+  parent: Foot
+  to_parent: 1.0/12.0
+  
