@@ -1,6 +1,6 @@
 measurement
-    by FIX (your name)
-    FIX (url)
+    by Daniel Morrison, [i] Collective Idea
+    FIX
 
 == DESCRIPTION:
   
@@ -26,7 +26,7 @@ FIX (describe your package)
 
 (The MIT License)
 
-Copyright (c) 2007 FIX
+Copyright (c) 2007 Daniel Morrison, Collective Idea
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
