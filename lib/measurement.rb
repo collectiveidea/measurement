@@ -45,75 +45,7 @@ module Measurement
 
     superclass = options['parent'] ? "Measurement::#{measurement_type}::#{options['parent']}" : "Measurement::#{measurement_type}::Base"
   
-    klass = Measurement::create_class("Measurement::#{measurement_type}", unit, superclass.constantize ) do
-      class << self
-        attr_accessor :abbreviation, :to_base_multiplier, :to_parent_multiplier, :prefix
-      
-        def module_name
-          self.to_s.sub("::#{self.to_s.demodulize}", '')
-        end
-      
-        def base_unit
-          "#{module_name}::BASE_UNIT".constantize.constantize
-        end
-      end
-  
-      def to_base
-        if self.instance_of?(self.class.base_unit)
-          super
-        elsif self.class.to_base_multiplier
-          self.class.base_unit.new(units * eval(self.class.to_base_multiplier.to_s))
-        else
-          to_parent.to_base
-        end
-      end
-  
-      def to_parent
-        if self.instance_of?(self.class.base_unit)
-          super
-        elsif self.class.to_parent_multiplier
-          self.class.superclass.new(units * eval(self.class.to_parent_multiplier.to_s))
-        else
-          to_base
-        end
-      end
-    
-      def to_ancestor(ancestor)
-        new_unit = self
-        while !new_unit.instance_of?(ancestor)
-          new_unit = new_unit.to_parent
-        end
-        new_unit
-      end
-    
-      def to_child(child)
-        child.new(units / child.new(1).to_ancestor(self.class).units)
-      end
-      
-      def to_prefixed(prefix)
-        
-      end
-      
-      def method_missing(method_name, *args)
-        if method_name.to_s =~ /^to_/ && defined?(method_name.to_s[3..-1].singularize.classify.constantize)
-          klass = "#{self.class.module_name}::#{method_name.to_s[3..-1].singularize.classify}".constantize
-        
-          if klass.is_a?(self.class.base_unit) || self.class.ancestors.include?(klass)
-            # is a parent
-            to_ancestor(klass)
-          elsif klass.ancestors.include?(self.class)
-            # is a child
-            to_child(klass)
-          else
-            # Have to go through the base unit
-            to_base.to_child(klass)
-          end
-        else
-          super(method_name, *args)
-        end
-      end
-        
-    end
+    klass = Measurement::create_class("Measurement::#{measurement_type}", unit, superclass.constantize )
     
     klass.send :to_base_multiplier=, options['to_base']
     klass.send :to_parent_multiplier=, options['to_parent'] 
@@ -161,12 +93,71 @@ def load_measurement(measurement_type, base_name)
       @units = units
     end
   
+    class << self
+      attr_accessor :abbreviation, :to_base_multiplier, :to_parent_multiplier, :prefix
+    
+      def module_name
+        self.to_s.sub("::#{self.to_s.demodulize}", '')
+      end
+    
+      def base_unit
+        "#{module_name}::BASE_UNIT".constantize.constantize
+      end
+    end
+
+    def to_base
+      if self.instance_of?(self.class.base_unit)
+        super
+      elsif self.class.to_base_multiplier
+        self.class.base_unit.new(units * eval(self.class.to_base_multiplier.to_s))
+      else
+        to_parent.to_base
+      end
+    end
+    
     def to_parent
-      BASE_UNIT.constantize.new(units)
+      if self.instance_of?(self.class.base_unit)
+        super
+      elsif self.class.to_parent_multiplier
+        self.class.superclass.new(units * eval(self.class.to_parent_multiplier.to_s))
+      else
+        to_base
+      end
     end
   
-    def to_base
-      BASE_UNIT.constantize.new(units)
+    def to_ancestor(ancestor)
+      new_unit = self
+      while !new_unit.instance_of?(ancestor)
+        new_unit = new_unit.to_parent
+      end
+      new_unit
+    end
+  
+    def to_child(child)
+      child.new(units / child.new(1).to_ancestor(self.class).units)
+    end
+    
+    def to_prefixed(prefix)
+      
+    end
+    
+    def method_missing(method_name, *args)
+      if method_name.to_s =~ /^to_/ && defined?(method_name.to_s[3..-1].singularize.classify.constantize)
+        klass = "#{self.class.module_name}::#{method_name.to_s[3..-1].singularize.classify}".constantize
+      
+        if klass.is_a?(self.class.base_unit) || self.class.ancestors.include?(klass)
+          # is a parent
+          to_ancestor(klass)
+        elsif klass.ancestors.include?(self.class)
+          # is a child
+          to_child(klass)
+        else
+          # Have to go through the base unit
+          to_base.to_child(klass)
+        end
+      else
+        super(method_name, *args)
+      end
     end
   end
   
@@ -187,8 +178,4 @@ def load_measurement(measurement_type, base_name)
   sorted_array.each do |unit, options|
     define_class(unit, options, measurement_type)
   end
-    
-  
-  
-  mod # return the new module
 end
