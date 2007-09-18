@@ -4,4 +4,8 @@ README.txt
 Rakefile
 bin/measurement
 lib/measurement.rb
+lib/measurements/length.yml
+lib/measurements/weight.yml
+lib/measurements/temperature.yml
+lib/measurements/volume.yml
 test/test_measurement.rb

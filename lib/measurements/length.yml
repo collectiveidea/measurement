@@ -1,16 +1,13 @@
+#Base:Meter
+# SI
 Meter:
   abbreviation: m
-  to_base: 1.0
-  to_parent: 1.0
-Centimeter:
-  abbreviation: cm
+  prefix: si
+Metre:
+  abbreviation: m
   parent: Meter
-  to_parent: 100.0
-Kilometer:
-  abbreviation: km
-  parent: Meter
-  to_parent: 1.0/1000.0
-  
+
+# Imperial
 Foot:
   abbreviation: ft
   to_base: 3.6
@@ -19,4 +16,21 @@ Inch:
   abbreviation: in
   parent: Foot
   to_parent: 1.0/12.0
-  
+Yard:
+  abbreviation: yd
+  parent: Foot
+  to_parent: 3
+Furlong:
+  abbreviation: 
+  parent: Yard
+  to_parent: 220
+Mile: 
+  abbreviation: mi
+  parent: Yard
+  to_parent: 1760
+
+# Roman
+Stadium:
+  abbreviation:
+  parent: Meter
+  to_parent: 185
