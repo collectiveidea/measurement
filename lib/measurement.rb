@@ -8,7 +8,7 @@ end
 
 module Measurement
   VERSION = '1.0.0'
-  
+    
   # Supported measurement types with base unit
   MEASUREMENTS = {
     'AmountOfSubstance' => 'Mole',
@@ -107,7 +107,7 @@ def load_measurement(measurement_type, base_name)
 
     def to_base
       if self.instance_of?(self.class.base_unit)
-        super
+        self
       elsif self.class.to_base_multiplier
         self.class.base_unit.new(units * eval(self.class.to_base_multiplier.to_s))
       else
@@ -116,9 +116,7 @@ def load_measurement(measurement_type, base_name)
     end
     
     def to_parent
-      if self.instance_of?(self.class.base_unit)
-        super
-      elsif self.class.to_parent_multiplier
+      if self.class.to_parent_multiplier
         self.class.superclass.new(units * eval(self.class.to_parent_multiplier.to_s))
       else
         to_base
@@ -135,10 +133,6 @@ def load_measurement(measurement_type, base_name)
   
     def to_child(child)
       child.new(units / child.new(1).to_ancestor(self.class).units)
-    end
-    
-    def to_prefixed(prefix)
-      
     end
     
     def method_missing(method_name, *args)
@@ -178,4 +172,6 @@ def load_measurement(measurement_type, base_name)
   sorted_array.each do |unit, options|
     define_class(unit, options, measurement_type)
   end
+  
+  mod
 end
