@@ -8,20 +8,19 @@ end
 
 module Measurement
   VERSION = '1.0.0'
-    
-  # Supported measurement types with base unit
-  MEASUREMENTS = {
-    'AmountOfSubstance' => 'Mole',
-    'Data'              => 'Bit',
-    'ElectricCurrent'   => 'Ampere',
-    'Length'            => 'Meter',
-    'LuminousIntensity' => 'Candela',
-    'Mass'              => 'Kilogram',
-    'Temperature'       => 'Kelvin',
-    'Time'              => 'Second',
-    'Volume'            => 'Liter',
-  }
-    
+  @measurements = @prefixes = {}
+  
+  def self.measurements(name)
+    filename = File.join(File.dirname(__FILE__), 'measurements', "#{name}.yml")
+    if File.exist?(filename)
+      @measurements[name] ||= YAML.load_file(filename)   
+    end
+  end
+  
+  def self.prefixes(prefix)
+    @prefixes[prefix] ||= YAML.load_file(File.join(File.dirname(__FILE__), 'prefixes', "#{prefix}.yml"))
+  end
+  
   def self.create_class(module_name, class_name, superclass, &block)
     klass = Class.new superclass, &block
     module_name.constantize.const_set class_name, klass
@@ -34,8 +33,8 @@ module Measurement
   
   # We'll lazy load each measurement module via cost_missing so we only load the ones we actually need.
   def self.const_missing(symbol)
-    if MEASUREMENTS.has_key?(symbol.to_s)
-      load_measurement(symbol.to_s, MEASUREMENTS[symbol.to_s])
+    if measurements(symbol)
+      load_measurement(symbol.to_s, measurements(symbol)['Base'])
     else
       super
     end
@@ -54,8 +53,7 @@ module Measurement
     
     # # Build prefixed classes
     if options['prefix']
-      prefixes = YAML.load_file(File.join(File.dirname(__FILE__), 'prefixes', "#{options['prefix']}.yml"))
-      prefix = prefixes.each do |prefix, prefix_options|
+      prefix = Measurement.prefixes(options['prefix']).each do |prefix, prefix_options|
         define_class("#{prefix.titleize}#{unit.downcase}", 
           options.merge(
             'abbreviation' => "#{prefix_options['abbreviation']}#{options['abbreviation']}", 
@@ -136,10 +134,8 @@ def load_measurement(measurement_type, base_name)
     end
     
     def method_missing(method_name, *args)
-      if method_name.to_s =~ /^to_/ && defined?(method_name.to_s[3..-1].singularize.classify.constantize)
-        klass = "#{self.class.module_name}::#{method_name.to_s[3..-1].singularize.classify}".constantize
-      
-        if klass.is_a?(self.class.base_unit) || self.class.ancestors.include?(klass)
+      if method_name.to_s =~ /^to_/ && defined?(klass = "#{self.class.module_name}::#{method_name.to_s[3..-1].singularize.classify}".constantize)
+        if self.class.ancestors.include?(klass)
           # is a parent
           to_ancestor(klass)
         elsif klass.ancestors.include?(self.class)
@@ -155,23 +151,18 @@ def load_measurement(measurement_type, base_name)
     end
   end
   
-  # Load all the measurement files
-  yaml = YAML.load_file(File.join(File.dirname(__FILE__), 'measurements', "#{measurement_type}.yml"))
-  array = yaml.to_a
-  sorted_array = array.select{|a| a[1]['parent'].nil?}
-  array.delete_if{|a| a[1]['parent'].nil?}
-  while !array.empty?
-    array.each do |a|
-      if sorted_array.map{|s|s[0]}.include?(a[1]['parent'])
-        sorted_array << a 
-        array.delete(a)
+  # Load all the measurements
+  yaml = Measurement.measurements(measurement_type)
+  yaml.delete('Base')
+  while !yaml.empty?
+    yaml.each do |unit, options|
+      # if the parent has been defined, we're good
+      if options['parent'].nil? || !yaml.has_key?(options['parent'])
+        define_class(unit, options, measurement_type)
+        yaml.delete(unit)
       end
     end
   end
-  
-  sorted_array.each do |unit, options|
-    define_class(unit, options, measurement_type)
-  end
-  
+
   mod
 end

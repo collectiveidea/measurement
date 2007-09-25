@@ -1,4 +1,4 @@
-#Base:Meter
+Base: Meter
 # SI
 Meter:
   abbreviation: m
@@ -10,8 +10,7 @@ Metre:
 # Imperial
 Foot:
   abbreviation: ft
-  to_base: 1.0/0.3048
-    
+  to_base: 0.3048
 Inch:
   abbreviation: in
   parent: Foot
