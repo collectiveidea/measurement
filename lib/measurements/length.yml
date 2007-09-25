@@ -10,7 +10,7 @@ Metre:
 # Imperial
 Foot:
   abbreviation: ft
-  to_base: 3.6
+  to_base: 1.0/0.3048
     
 Inch:
   abbreviation: in
