@@ -1,0 +1,54 @@
+Base: Pint
+Liter:
+  abbreviation: L
+  prefix: si
+  
+Pint:
+  abbreviation: pt
+Quart:
+  abbreviation: qt
+  parent: Pint
+  to_parent: 2
+Handle:
+  parent: Quart
+  to_parent: 2
+Growler:
+  parent: Handle
+Gallon:
+  abbreviation: gal
+  parent: Quart
+  to_parent: 4
+  
+MiniKeg:
+  parent: Liter
+  to_parent: 5
+
+SixthBarrel:
+  parent: Keg
+  to_parent: 1.0/6.0
+SodaKeg:
+  parent: SixthBarrel
+  
+QuarterBarrel:
+  parent: Keg
+  to_parent: 1.0/4.0
+PonyKeg:
+  parent: QuarterBarrel
+  
+ImportKeg:
+  parent: Gallon
+  to_parent: 13.2
+
+Keg:
+  parent: Gallon
+  to_parent: 15.5
+HalfBarrel:
+  parent: Keg
+  
+Barrel:
+  parent: Gallon
+  to_parent: 31
+  
+Hogshead:
+  parent: Gallon
+  to_parent: 64

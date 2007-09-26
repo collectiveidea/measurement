@@ -1,0 +1,11 @@
+Base: Second
+Second:
+  abbreviation: s
+  prefix: si
+Minute:
+  abbreviation: min
+  parent: Second
+  to_parent: 1.0/60.0
+Hour:
+  parent: Minute
+  to_parent: 1.0/60.0

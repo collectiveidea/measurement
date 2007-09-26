@@ -1,0 +1,12 @@
+Base: Bit
+Bit:
+  abbreviation: b
+  prefix: base2
+Byte:
+  abbreviation: B
+  parent: Bit
+  prefix: base2
+  to_parent: 1.0/8.0
+Nibble:
+  parent: Bit
+  to_parent: 1.0/4.0

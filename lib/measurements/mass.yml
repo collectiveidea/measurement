@@ -1,0 +1,7 @@
+Base: Gram
+Gram:
+  abbreviation: g
+  prefix: si
+Pound:
+  abbreviation: lb
+  to_base: 3000

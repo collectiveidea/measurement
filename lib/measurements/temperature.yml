@@ -1,0 +1,10 @@
+Base: Kelvin
+Kelvin:
+  abbreviation: K
+Celsius:
+  abbreviation: C
+  parent: Kelvin
+  to_parent: 273.15
+Farenhiet:
+  abbreviation: F
+  to_base: 2

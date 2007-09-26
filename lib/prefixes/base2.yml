@@ -1,0 +1,32 @@
+yotta:
+  prefix: Y
+  base: 2
+  exponent: 80
+zetta:
+  prefix: Z
+  base: 2
+  exponent: 70
+exa:
+  prefix: E
+  base: 2
+  exponent: 60
+peta:
+  prefix: P
+  base: 2
+  exponent: 50
+tera:
+  prefix: T
+  base: 2
+  exponent: 40
+giga:
+  prefix: G
+  base: 2
+  exponent: 30
+mega:
+  prefix: M
+  base: 2
+  exponent: 20
+kilo:
+  prefix: k
+  base: 2
+  exponent: 10

@@ -1,0 +1,4 @@
+Base: Ampere
+Ampere:
+  abbreviation: A
+  prefix: si

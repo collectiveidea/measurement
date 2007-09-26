@@ -1,0 +1,54 @@
+Base: Liter
+Liter:
+  abbreviation: L
+  prefix: si
+Litre: 
+  abbreviation: L
+  parent: Liter
+CubicCentimeter:
+  abbreviation: cc  
+  to_base: 1.0/1000.0
+Ounce:
+  abbreviation: oz
+  to_base: 1.0/300.0
+Teaspoon:
+  abbreviation: t
+  parent: Tablespoon
+  to_parent: 1.0/3.0
+Tablespoon:
+  abbreviation: T
+  parent: Ounce
+  to_parent: 2
+Cup:
+  abbreviation: c
+  parent: Ounce
+  to_parent: 8
+Pint:
+  abbreviation: pt
+  parent: Cup
+  to_parent: 2
+Quart:
+  abbreviation: qt
+  parent: Pint
+  to_parent: 2
+Handle:
+  parent: Quart
+  to_parent: 2
+Growler:
+  parent: Handle
+Gallon:
+  abbreviation: gal
+  parent: Quart
+  to_parent: 4
+BeerBarrel:
+  parent: Gallon
+  to_parent: 36
+OilBarrel:
+  parent: Gallon
+  to_parent: 42
+BeerHogshead:
+  parent: Gallon
+  to_parent: 64
+WineHogshead:
+  parent: Gallon
+  to_parent: 63

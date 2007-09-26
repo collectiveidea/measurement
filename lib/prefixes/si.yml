@@ -1,0 +1,76 @@
+yotta:
+  prefix: Y
+  base: 10
+  exponent: 24
+zetta:
+  prefix: Z
+  base: 10
+  exponent: 23
+exa:
+  prefix: E
+  base: 10
+  exponent: 18
+peta:
+  prefix: P
+  base: 10
+  exponent: 15
+tera:
+  prefix: T
+  base: 10
+  exponent: 12
+giga:
+  prefix: G
+  base: 10
+  exponent: 9
+mega:
+  prefix: M
+  base: 10
+  exponent: 6
+kilo:
+  prefix: k
+  base: 10
+  exponent: 3
+hecto:
+  prefix: h
+  base: 10
+  exponent: 1
+deci:
+  prefix: d
+  base: 10
+  exponent: -1
+centi:
+  prefix: c
+  base: 10
+  exponent: -2
+milli:
+  prefix: m
+  base: 10
+  exponent: -3
+micro:
+  prefix: µ
+  base: 10
+  exponent: -6
+nano:
+  prefix: n
+  base: 10
+  exponent: -9
+pico:
+  prefix: p
+  base: 10
+  exponent: -12
+femto:
+  prefix: f
+  base: 10
+  exponent: -15
+atto:
+  prefix: a
+  base: 10
+  exponent: -18
+zepto:
+  prefix: z
+  base: 10
+  exponent: -21
+yocto:
+  prefix: y
+  base: 10
+  exponent: -6
