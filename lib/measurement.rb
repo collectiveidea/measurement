@@ -134,7 +134,8 @@ def load_measurement(measurement_type, base_name)
     end
     
     def method_missing(method_name, *args)
-      if method_name.to_s =~ /^to_/ && defined?(klass = "#{self.class.module_name}::#{method_name.to_s[3..-1].singularize.classify}".constantize)
+      if method_name.to_s =~ /^to_/ && defined?("#{self.class.module_name}::#{method_name.to_s[3..-1].singularize.classify}".constantize)
+        klass = "#{self.class.module_name}::#{method_name.to_s[3..-1].singularize.classify}".constantize
         if self.class.ancestors.include?(klass)
           # is a parent
           to_ancestor(klass)

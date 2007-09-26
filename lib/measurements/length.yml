@@ -30,6 +30,5 @@ Mile:
 
 # Roman
 Stadium:
-  abbreviation:
   parent: Meter
   to_parent: 185
