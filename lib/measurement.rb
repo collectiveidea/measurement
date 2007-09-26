@@ -47,7 +47,9 @@ module Measurement
     klass = Measurement::create_class("Measurement::#{measurement_type}", unit, superclass.constantize )
     
     klass.send :to_base_multiplier=, options['to_base']
-    klass.send :to_parent_multiplier=, options['to_parent'] 
+    if options['parent']
+      klass.send :to_parent_multiplier=, options['to_parent'] ? options['to_parent'] : 1.0
+    end
     klass.send :abbreviation=, options['abbreviation'] 
     klass.send :prefix=, options['prefix'] 
     
