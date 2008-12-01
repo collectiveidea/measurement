@@ -34,6 +34,7 @@ module Measurement
   
   # We'll lazy load each measurement module via cost_missing so we only load the ones we actually need.
   def self.const_missing(symbol)
+    puts 'HERE!'
     if measurements(symbol)
       load_measurement(symbol.to_s, measurements(symbol)['Base'])
     else
@@ -165,7 +166,7 @@ module Measurement
   
     # Load all the measurements
     yaml = Measurement.measurements(measurement_type)
-    yaml.delete('Base')
+    yaml.delete('Base') if yaml['Base']
     while !yaml.empty?
       yaml.each do |unit, options|
         # if the parent has been defined, we're good
