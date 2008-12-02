@@ -4,6 +4,7 @@ require 'active_support'
 
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'foot', 'feet'
+  inflect.uncountable 'celsius'
 end
 
 module Measurement
