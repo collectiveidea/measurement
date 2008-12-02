@@ -2,7 +2,7 @@ require 'yaml'
 require 'rubygems'
 require 'active_support'
 
-Inflector.inflections do |inflect|
+ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'foot', 'feet'
 end
 
