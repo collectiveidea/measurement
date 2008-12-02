@@ -12,7 +12,6 @@ module Measurement
   
   def self.measurements(name, parent=nil)
     filename = File.join(File.dirname(__FILE__), 'measurements', (parent || '.'), "#{name}.yml")
-    puts filename
     if File.exist?(filename)
       @measurements[name] ||= YAML.load_file(filename)   
     end
@@ -34,7 +33,6 @@ module Measurement
   
   # We'll lazy load each measurement module via cost_missing so we only load the ones we actually need.
   def self.const_missing(symbol)
-    puts 'HERE!'
     if measurements(symbol)
       load_measurement(symbol.to_s, measurements(symbol)['Base'])
     else
@@ -80,7 +78,6 @@ module Measurement
     
       # We'll lazy load each measurement module via cost_missing so we only load the ones we actually need.
       def self.const_missing(symbol)
-        puts "Name: #{self.name.demodulize}"
         if Measurement.measurements(symbol, self.name.demodulize)
           Measurement.load_measurement(symbol.to_s, Measurement.measurements(symbol, self.name.demodulize)['Base'])
         else
