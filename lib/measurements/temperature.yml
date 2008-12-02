@@ -5,6 +5,6 @@ Celsius:
   abbreviation: C
   parent: Kelvin
   to_parent: 273.15
-Farenhiet:
+Farenheit:
   abbreviation: F
   to_base: 2
