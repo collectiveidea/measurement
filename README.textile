@@ -38,3 +38,5 @@ Some of my plans:
 
 * More units (please add!)
 * uh, tests.
+* Namespaced units (Volume::Beer::Barrel vs. Volume::Oil::Barrel)
+* Allow parents to be SI-derived (you can base a new unit on Meter, but not Kilometer)

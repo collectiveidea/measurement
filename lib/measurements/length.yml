@@ -28,6 +28,15 @@ Mile:
   parent: Yard
   to_parent: 1760
 
+
+# Astronomy
+Lightyear:
+  parent: Meter
+  to_parent: 94607304725808000
+Parsec:
+  parent: Lightyear
+  to_parent: 3.26156
+
 # Roman
 Stadium:
   parent: Meter
