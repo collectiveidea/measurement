@@ -1,0 +1,40 @@
+h1. measurement
+
+A sweet Ruby measurement & converstion Library.
+
+by Daniel Morrison, <a href="http://collectiveidea.com">Collective Idea</a>
+
+
+h2. Introduction
+
+Measurement is a library I wrote ages ago, in large part to play with metaprogramming.
+
+But its cool. All of the measurements and conversions are in yaml files, stored in lib/measurements.  This lets me have fun with SI prefixes and such. Ideally these files would be a separate project, to be used by other languages, but that's for another day.
+
+h2. What can it do?
+
+Conversions.
+
+<code><pre>
+> include Measurement::Length
+> Inch.new(12).to_centimeters
+=> #<Measurement::Length::Centimeter:0x173c2b4 @units=30.48>
+</pre></code>
+
+<code><pre>
+> include Measurement::Volume
+> Milliliter.new(100).to_teaspoons
+=> #<Measurement::Volume::Teaspoon:0x1720e88 @units=45.0>
+</pre></code>
+
+Check the yaml files to see what's available, but note that SI prefixes (mega-, kilo-, yotta-, etc.) are applied magically, as are base2 prefixes for data.
+
+
+h3.  What's next?
+
+Dunno, have ideas?  Send me a message via github.  I'm reviving the project after over a year, so its time to have some fun.
+
+Some of my plans:
+
+* More units (please add!)
+* uh, tests.

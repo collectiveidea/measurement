@@ -1,32 +1,6 @@
-measurement
-    by Daniel Morrison, [i] Collective Idea
-    FIX
-
-== DESCRIPTION:
-  
-FIX (describe your package)
-
-== FEATURES/PROBLEMS:
-  
-* FIX (list of features or problems)
-
-== SYNOPSIS:
-
-  FIX (code sample of usage)
-
-== REQUIREMENTS:
-
-* FIX (list of requirements)
-
-== INSTALL:
-
-* FIX (sudo gem install, anything else)
-
-== LICENSE:
-
 (The MIT License)
 
-Copyright (c) 2007 Daniel Morrison, Collective Idea
+Copyright (c) 2007-2008 Daniel Morrison, Collective Idea
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
